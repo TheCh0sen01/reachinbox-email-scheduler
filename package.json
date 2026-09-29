@@ -1,0 +1,23 @@
+{
+  "name": "reachinbox-scheduler",
+  "private": true,
+  "version": "1.0.0",
+  "workspaces": [
+    "api",
+    "web"
+  ],
+  "scripts": {
+    "dev": "concurrently -k -n api,web -c green,blue \"npm run dev -w api\" \"npm run dev -w web\"",
+    "build": "npm run build -w api && npm run build -w web",
+    "start": "concurrently -k -n api,worker -c green,yellow \"npm run start -w api\" \"npm run worker -w api\"",
+    "infra:up": "docker compose up -d postgres redis elasticsearch",
+    "infra:down": "docker compose down"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2",
+    "typescript": "^5.7.3"
+  },
+  "dependencies": {
+    "nodemailer": "^10.0.12"
+  }
+}
